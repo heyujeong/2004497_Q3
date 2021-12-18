@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel ="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
+<div class = "btn-group">
+</div>
+{% if latest_question_list %}
+<table class = "table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Question</th>
+        <th scope="col">option1</th>
+        <th scope="col">option2</th>
+        <th scope="col">option3</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for question in latest_question_list %}
+        <tr>
+                <td>{{forloop.counter}}</td>
+                <td><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a></td>
+                {% for choice in question.choice_set.all %}
+                <td>{{choice.choice_text}}--{{choice.votes}}vote{{choice.votes|pluralize}}</td>
+                {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock%}

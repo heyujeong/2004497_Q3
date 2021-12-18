@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+    <link rel ="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<div class="page-header">
+    {% if user.is_authenticated %}
+    <a href="{% url 'blog:post_new' %}" class="top-menu"><span class="glyphicon-plus"></span></a>
+    {% endif %}
+    <h1><a href="{% url 'blog:post_list' %}">HYWU Blog</a></h1>
+</div>
+<h1>New Post</h1>
+<form method ="POST" class ="post-form">{% csrf_token %}
+{{ form.as_p}}
+<button type ="submit" class ="save btn btn-default">Save</button>
+</form>
+{% endblock %}
